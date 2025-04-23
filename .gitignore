@@ -1,0 +1,45 @@
+# OS Files
+.DS_Store
+*.swp
+*~
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.hypothesis/
+
+# Rust
+/target/
+Cargo.lock
+
+# Go
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+/vendor/
+
+# Environment
+.env
+.env*.local
+
+# Build artifacts
+/build/
+/dist/
+/bin/
+
+# SGX/Gramine Specific (example)
+*.token
+*.sig
+*.manifest.sgx
+*.sgx 

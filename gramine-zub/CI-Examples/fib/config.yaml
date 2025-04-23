@@ -1,0 +1,12 @@
+Distro: "ubuntu20.04"
+Gramine:
+  Repository: "https://github.com/gramineproject/gramine.git"
+  Branch: "master"
+
+# optional: in-kernel SGX driver (recommended)
+SGXDriver:
+  Repository: ""
+  Branch: ""
+
+# specific registry
+Registry: ""

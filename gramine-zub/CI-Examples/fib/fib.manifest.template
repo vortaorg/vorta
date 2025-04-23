@@ -1,0 +1,52 @@
+# Copyright (C) 2023 Gramine contributors
+# SPDX-License-Identifier: BSD-3-Clause
+
+libos.entrypoint = "{{ execdir }}/bash"
+
+# Add these lines for process creation
+loader.env.LD_LIBRARY_PATH = "/lib:{{ arch_libdir }}:/usr{{ arch_libdir }}"
+loader.env.PATH = "{{ execdir }}"
+loader.insecure__use_cmdline_argv = true
+
+# Enable process creation
+fs.mounts = [
+   { path = "/lib", uri = "file:{{ gramine.runtimedir() }}" },
+   { path = "{{ arch_libdir }}", uri = "file:{{ arch_libdir }}" },
+   { path = "/usr/lib", uri = "file:/usr/lib" },
+   { path = "{{ execdir }}", uri = "file:{{ execdir }}" },
+   { path = "/scripts", uri = "file:scripts" },
+   { path = "/bin", uri = "file:/bin" },
+   { path = "/usr/bin", uri = "file:/usr/bin" },
+   { path = "/tmp", uri = "file:/tmp" },
+   { path = "/home/azureuser/.cargo", uri = "file:/home/azureuser/.cargo" }
+]
+
+sgx.debug = true
+sgx.edmm_enable = {{ 'true' if env.get('EDMM', '0') == '1' else 'false' }}
+sgx.enclave_size = "8G"
+sgx.max_threads = 16
+
+sgx.trusted_files = [
+  "file:{{ execdir }}/",
+  "file:{{ gramine.runtimedir() }}/",
+  "file:{{ arch_libdir }}/",
+  "file:/usr/{{ arch_libdir }}/",
+  "file:scripts/fibonacci",
+  "file:scripts/riscv32im-succinct-zkvm-elf",
+  "file:scripts/bash_test.sh",
+  "file:/bin/",
+  "file:/usr/bin/"
+]
+
+sgx.allowed_files = [
+   "file:scripts/",
+   "file:/dev/stdout",
+   "file:/dev/stderr",
+   "file:/dev/null",
+   "file:/dev/urandom",
+   "file:scripts/testdir/",
+   "file:/tmp/",
+   "file:/home/azureuser/.cargo/",
+   "file:.",
+   "file:./"
+]

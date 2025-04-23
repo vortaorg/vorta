@@ -1,0 +1,25 @@
+# Use Ubuntu 22.04 as base
+FROM ubuntu:20.04
+
+# Install necessary dependencies
+RUN apt-get update && apt-get install -y \
+    libprotobuf-c1 \
+    bash \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create necessary directories
+WORKDIR /app
+
+# Create .cargo directory if needed
+RUN mkdir -p /home/user/.cargo
+
+# Copy your scripts and executables
+COPY scripts/ /app/scripts/
+
+# Make sure all executables have proper permissions
+RUN chmod +x /app/scripts/fibonacci \
+    && chmod +x /app/scripts/riscv32im-succinct-zkvm-elf \
+    && chmod +x /app/scripts/bash_test.sh
+
+# Create any necessary test directories
+RUN mkdir -p /app/scripts/testdir

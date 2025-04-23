@@ -1,0 +1,37 @@
+[package]
+name = "vorta-mainframe"
+version = "0.1.0"
+edition = "2021"
+authors = ["Vorta Team <team@vorta.org>"] # Placeholder
+description = "Vorta Mainframe Component (Manager/Scheduler Logic in TEE)"
+
+[dependencies]
+# Common dependencies
+log = "0.4"
+env_logger = "0.9"
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# TEE / SGX specific dependencies (Placeholders - actual crates depend on SDK used)
+# Example: Fortanix EDP or similar SDKs
+# fortanix-sgx-abi = "..."
+# sgx_types = "..."
+# sgx_urts = "..."
+
+# Dependencies for specific functionalities (e.g., RPC, networking, crypto)
+# tonic = "0.8" # Example for gRPC
+# hyper = "0.14" # Example for HTTP
+# ring = "0.16" # Example for crypto
+
+[features]
+default = []
+sgx_mode = [] # Feature to enable SGX specific code paths
+
+[lib]
+name = "vorta_mainframe_lib"
+path = "src/lib.rs"
+
+[[bin]]
+name = "vorta-mainframe"
+path = "src/main.rs" 
